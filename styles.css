@@ -414,6 +414,7 @@ canvas {
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem;
+  justify-content: flex-start;
 }
 
 .primary-button,
@@ -437,6 +438,12 @@ canvas {
   background: var(--herb);
   color: #ffffff;
   box-shadow: 0 14px 30px rgba(36, 88, 68, 0.24);
+}
+
+.actions .primary-button {
+  flex: 0 1 auto;
+  min-width: 13rem;
+  padding-inline: 1.25rem;
 }
 
 .secondary-button,

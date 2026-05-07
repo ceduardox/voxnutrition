@@ -204,6 +204,30 @@
             <input type="hidden" name="signatureData" id="signatureData" />
           </div>
 
+          <div class="selfie-block">
+            <div class="signature-copy">
+              <div>
+                <span class="signature-label">Representative selfie</span>
+                <p>Take a live photo to attach identity evidence to this client file.</p>
+              </div>
+              <button class="ghost-button" type="button" id="resetSelfie">Retake</button>
+            </div>
+
+            <div class="selfie-stage">
+              <video id="selfieVideo" autoplay playsinline muted></video>
+              <img id="selfiePreview" alt="Representative selfie preview" />
+              <div class="camera-placeholder" id="cameraPlaceholder">
+                <span>Camera preview</span>
+              </div>
+            </div>
+
+            <div class="camera-actions">
+              <button class="secondary-button" type="button" id="startCamera">Open camera</button>
+              <button class="primary-button" type="button" id="captureSelfie">Take selfie</button>
+            </div>
+            <input type="hidden" name="selfieData" id="selfieData" />
+          </div>
+
           <label class="check-row">
             <input name="authority" type="checkbox" required />
             <span>I confirm that I am authorized to submit this OEM client request for the company listed above.</span>
@@ -214,7 +238,6 @@
               Submit client request
               <span aria-hidden="true">→</span>
             </button>
-            <button class="secondary-button" type="button" id="downloadRecord">Download record</button>
           </div>
 
           <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>

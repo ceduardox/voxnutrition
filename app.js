@@ -4,8 +4,15 @@
   const canvas = document.querySelector("#signatureCanvas");
   const signatureInput = document.querySelector("#signatureData");
   const clearSignature = document.querySelector("#clearSignature");
-  const downloadRecord = document.querySelector("#downloadRecord");
+  const selfieInput = document.querySelector("#selfieData");
+  const selfieVideo = document.querySelector("#selfieVideo");
+  const selfiePreview = document.querySelector("#selfiePreview");
+  const selfieStage = document.querySelector(".selfie-stage");
+  const startCamera = document.querySelector("#startCamera");
+  const captureSelfie = document.querySelector("#captureSelfie");
+  const resetSelfie = document.querySelector("#resetSelfie");
   const storageKey = "voxnutrition_oem_client_request";
+  let cameraStream = null;
 
   document.querySelectorAll(".country-select").forEach((select) => {
     new Choices(select, {
@@ -51,26 +58,12 @@
       notes: data.get("notes") || "",
       authority: data.get("authority") === "on",
       signatureData: signatureInput.value || "",
+      selfieData: selfieInput.value || "",
     };
   }
 
   function saveRecord(record) {
     localStorage.setItem(storageKey, JSON.stringify(record));
-  }
-
-  function downloadJson(record) {
-    const blob = new Blob([JSON.stringify(record, null, 2)], {
-      type: "application/json",
-    });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement("a");
-    const company = (record.companyName || "vox-client").toLowerCase().replace(/[^a-z0-9]+/g, "-");
-    link.href = url;
-    link.download = `${company}-oem-request.json`;
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
-    URL.revokeObjectURL(url);
   }
 
   function hydrateDraft() {
@@ -93,9 +86,61 @@
         signatureInput.value = record.signatureData;
         signaturePad.fromDataURL(record.signatureData);
       }
+      if (record.selfieData) {
+        selfieInput.value = record.selfieData;
+        selfiePreview.src = record.selfieData;
+        selfieStage.classList.add("has-photo");
+      }
     } catch (error) {
       localStorage.removeItem(storageKey);
     }
+  }
+
+  async function openCamera() {
+    if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+      status.textContent = "Camera access is not available in this browser.";
+      return;
+    }
+
+    try {
+      cameraStream = await navigator.mediaDevices.getUserMedia({
+        video: { facingMode: "user" },
+        audio: false,
+      });
+      selfieVideo.srcObject = cameraStream;
+      selfieStage.classList.remove("has-photo");
+      selfieStage.classList.add("has-video");
+      status.textContent = "Camera ready. Take the selfie when the representative is centered.";
+    } catch (error) {
+      status.textContent = "Camera permission was not granted or the device has no camera.";
+    }
+  }
+
+  function stopCamera() {
+    if (!cameraStream) return;
+    cameraStream.getTracks().forEach((track) => track.stop());
+    cameraStream = null;
+    selfieVideo.srcObject = null;
+  }
+
+  function takeSelfie() {
+    if (!cameraStream || !selfieVideo.videoWidth) {
+      status.textContent = "Open the camera before taking the selfie.";
+      return;
+    }
+
+    const photoCanvas = document.createElement("canvas");
+    photoCanvas.width = selfieVideo.videoWidth;
+    photoCanvas.height = selfieVideo.videoHeight;
+    photoCanvas.getContext("2d").drawImage(selfieVideo, 0, 0);
+    const photoData = photoCanvas.toDataURL("image/jpeg", 0.86);
+    selfieInput.value = photoData;
+    selfiePreview.src = photoData;
+    selfieStage.classList.remove("has-video");
+    selfieStage.classList.add("has-photo");
+    stopCamera();
+    saveRecord(formToRecord());
+    status.textContent = "Selfie captured and attached to this client request.";
   }
 
   window.addEventListener("resize", resizeCanvas);
@@ -116,6 +161,17 @@
     status.textContent = "Signature cleared.";
   });
 
+  startCamera.addEventListener("click", openCamera);
+  captureSelfie.addEventListener("click", takeSelfie);
+  resetSelfie.addEventListener("click", () => {
+    selfieInput.value = "";
+    selfiePreview.removeAttribute("src");
+    selfieStage.classList.remove("has-photo", "has-video");
+    stopCamera();
+    saveRecord(formToRecord());
+    status.textContent = "Selfie cleared. Open the camera to take a new photo.";
+  });
+
   form.addEventListener("submit", (event) => {
     event.preventDefault();
 
@@ -125,19 +181,16 @@
       return;
     }
 
+    if (!selfieInput.value) {
+      status.textContent = "Please take the representative selfie before submitting.";
+      return;
+    }
+
     signatureInput.value = signaturePad.toDataURL("image/png");
     const record = formToRecord();
     saveRecord(record);
     status.textContent = "Client request captured. Vox Nutrition can review this file.";
   });
 
-  downloadRecord.addEventListener("click", () => {
-    if (!signaturePad.isEmpty()) {
-      signatureInput.value = signaturePad.toDataURL("image/png");
-    }
-    const record = formToRecord();
-    saveRecord(record);
-    downloadJson(record);
-    status.textContent = "JSON record downloaded.";
-  });
+  window.addEventListener("beforeunload", stopCamera);
 })();

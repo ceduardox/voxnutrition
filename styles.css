@@ -295,7 +295,8 @@ textarea {
   border-color: var(--herb) transparent transparent;
 }
 
-.signature-block {
+.signature-block,
+.selfie-block {
   margin-top: 1.35rem;
   border: 1px solid var(--line);
   border-radius: 0.65rem;
@@ -326,6 +327,56 @@ canvas {
     linear-gradient(transparent 92%, rgba(36, 88, 68, 0.16) 92%),
     #ffffff;
   touch-action: none;
+}
+
+.selfie-stage {
+  position: relative;
+  display: grid;
+  min-height: 260px;
+  overflow: hidden;
+  border: 1px dashed #aab8a3;
+  border-radius: 0.45rem;
+  background: #ffffff;
+  place-items: center;
+}
+
+.selfie-stage video,
+.selfie-stage img {
+  width: 100%;
+  height: 100%;
+  min-height: 260px;
+  object-fit: cover;
+}
+
+.selfie-stage img,
+.selfie-stage.has-video .camera-placeholder,
+.selfie-stage.has-photo video,
+.selfie-stage.has-photo .camera-placeholder {
+  display: none;
+}
+
+.selfie-stage.has-photo img {
+  display: block;
+}
+
+.camera-placeholder {
+  position: absolute;
+  inset: 1rem;
+  display: grid;
+  border-radius: 0.45rem;
+  background:
+    linear-gradient(135deg, rgba(36, 88, 68, 0.08), rgba(201, 154, 66, 0.1)),
+    #fbfcf8;
+  color: var(--muted);
+  font-weight: 800;
+  place-items: center;
+}
+
+.camera-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 0.85rem;
 }
 
 .check-row {
@@ -450,7 +501,8 @@ canvas {
   }
 
   .primary-button,
-  .secondary-button {
+  .secondary-button,
+  .camera-actions button {
     width: 100%;
   }
 }

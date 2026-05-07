@@ -15,13 +15,15 @@
   const closeSuccess = document.querySelector("#closeSuccess");
   const storageKey = "voxnutrition_oem_client_request";
   let cameraStream = null;
+  const countryChoices = new Map();
 
   document.querySelectorAll(".country-select").forEach((select) => {
-    new Choices(select, {
+    const choices = new Choices(select, {
       searchEnabled: true,
       itemSelectText: "",
       shouldSort: false,
     });
+    countryChoices.set(select.name, choices);
   });
 
   const signaturePad = new SignaturePad(canvas, {
@@ -68,6 +70,13 @@
     localStorage.setItem(storageKey, JSON.stringify(record));
   }
 
+  function saveCurrentDraft() {
+    if (!signaturePad.isEmpty()) {
+      signatureInput.value = signaturePad.toDataURL("image/png");
+    }
+    saveRecord(formToRecord());
+  }
+
   function hydrateDraft() {
     const saved = localStorage.getItem(storageKey);
     if (!saved) return;
@@ -79,6 +88,8 @@
         if (!field || key === "signatureData") return;
         if (field.type === "checkbox") {
           field.checked = Boolean(value);
+        } else if (countryChoices.has(key)) {
+          countryChoices.get(key).setChoiceByValue(String(value || ""));
         } else {
           field.value = value;
           field.dispatchEvent(new Event("change", { bubbles: true }));
@@ -141,7 +152,7 @@
     selfieStage.classList.remove("has-video");
     selfieStage.classList.add("has-photo");
     stopCamera();
-    saveRecord(formToRecord());
+    saveCurrentDraft();
     status.classList.remove("is-success");
     status.textContent = "Selfie captured. The photo preview is now attached to this client request.";
   }
@@ -150,17 +161,20 @@
   resizeCanvas();
   hydrateDraft();
 
-  form.addEventListener("input", () => {
-    if (!signaturePad.isEmpty()) {
-      signatureInput.value = signaturePad.toDataURL("image/png");
-    }
-    saveRecord(formToRecord());
-  });
+  form.addEventListener("input", saveCurrentDraft);
+  form.addEventListener("change", saveCurrentDraft);
+
+  if (typeof signaturePad.addEventListener === "function") {
+    signaturePad.addEventListener("endStroke", saveCurrentDraft);
+  } else {
+    canvas.addEventListener("pointerup", saveCurrentDraft);
+    canvas.addEventListener("touchend", saveCurrentDraft);
+  }
 
   clearSignature.addEventListener("click", () => {
     signaturePad.clear();
     signatureInput.value = "";
-    saveRecord(formToRecord());
+    saveCurrentDraft();
     status.classList.remove("is-success");
     status.textContent = "Signature cleared.";
   });
@@ -172,7 +186,7 @@
     selfiePreview.removeAttribute("src");
     selfieStage.classList.remove("has-photo", "has-video");
     stopCamera();
-    saveRecord(formToRecord());
+    saveCurrentDraft();
     status.classList.remove("is-success");
     status.textContent = "Selfie cleared. Open the camera to take a new photo.";
   });

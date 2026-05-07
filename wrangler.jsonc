@@ -8,20 +8,6 @@
   "assets": {
     "directory": "."
   },
-  // Configure these bindings in Cloudflare Pages settings after creating them:
-  // "d1_databases": [
-  //   {
-  //     "binding": "DB",
-  //     "database_name": "voxnutrition-db",
-  //     "database_id": "REPLACE_WITH_D1_DATABASE_ID"
-  //   }
-  // ],
-  // "r2_buckets": [
-  //   {
-  //     "binding": "FILES",
-  //     "bucket_name": "voxnutrition-files"
-  //   }
-  // ],
   "compatibility_flags": [
     "nodejs_compat"
   ]

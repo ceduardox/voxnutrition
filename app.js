@@ -191,23 +191,7 @@
     status.textContent = "Selfie cleared. Open the camera to take a new photo.";
   });
 
-  async function submitToDatabase(record) {
-    const response = await fetch("/api/submit", {
-      method: "POST",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(record),
-    });
-
-    const result = await response.json().catch(() => ({}));
-    if (!response.ok || !result.ok) {
-      throw new Error(result.error || "The request could not be saved.");
-    }
-    return result;
-  }
-
-  form.addEventListener("submit", async (event) => {
+  form.addEventListener("submit", (event) => {
     event.preventDefault();
 
     if (signaturePad.isEmpty()) {
@@ -224,24 +208,9 @@
     signatureInput.value = signaturePad.toDataURL("image/png");
     const record = formToRecord();
     saveRecord(record);
-
-    const submitButton = form.querySelector('button[type="submit"]');
-    submitButton.disabled = true;
-    status.classList.remove("is-success");
-    status.textContent = "Submitting client request...";
-
-    try {
-      const result = await submitToDatabase(record);
-      localStorage.setItem(`${storageKey}_last_id`, result.id);
-      status.classList.add("is-success");
-      status.textContent = "Submitted successfully. The client file was saved in the Vox Nutrition database.";
-      successModal.classList.add("is-visible");
-    } catch (error) {
-      status.classList.remove("is-success");
-      status.textContent = `${error.message} Your draft is still saved on this device.`;
-    } finally {
-      submitButton.disabled = false;
-    }
+    status.classList.add("is-success");
+    status.textContent = "Submitted successfully. The client request was saved on this device.";
+    successModal.classList.add("is-visible");
   });
 
   closeSuccess.addEventListener("click", () => {

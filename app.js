@@ -13,6 +13,7 @@
   const resetSelfie = document.querySelector("#resetSelfie");
   const successModal = document.querySelector("#successModal");
   const closeSuccess = document.querySelector("#closeSuccess");
+  const clearDraft = document.querySelector("#clearDraft");
   const storageKey = "voxnutrition_oem_client_request";
   let cameraStream = null;
   const countryChoices = new Map();
@@ -189,6 +190,21 @@
     saveCurrentDraft();
     status.classList.remove("is-success");
     status.textContent = "Selfie cleared. Open the camera to take a new photo.";
+  });
+
+  clearDraft.addEventListener("click", () => {
+    localStorage.removeItem(storageKey);
+    localStorage.removeItem(`${storageKey}_last_id`);
+    form.reset();
+    countryChoices.forEach((choices) => choices.setChoiceByValue(""));
+    signaturePad.clear();
+    signatureInput.value = "";
+    selfieInput.value = "";
+    selfiePreview.removeAttribute("src");
+    selfieStage.classList.remove("has-photo", "has-video");
+    stopCamera();
+    status.classList.remove("is-success");
+    status.textContent = "Form cache cleared.";
   });
 
   form.addEventListener("submit", (event) => {

@@ -189,6 +189,24 @@ textarea {
   width: 100%;
 }
 
+.heading-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.tiny-clear {
+  border: 1px solid #c8d2c5;
+  border-radius: 999px;
+  padding: 0.4rem 0.65rem;
+  background: rgba(255, 255, 255, 0.78);
+  color: var(--herb);
+  cursor: pointer;
+  font-size: 0.76rem;
+  font-weight: 850;
+}
+
 .form-heading h2 {
   font-size: clamp(2.15rem, 4vw, 3.9rem);
 }
@@ -595,6 +613,12 @@ canvas {
     width: min(100%, 17rem);
     max-height: 4.2rem;
     padding: 0.5rem 0.6rem;
+  }
+
+  .heading-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.25rem;
   }
 
   .manufacturing-card p,

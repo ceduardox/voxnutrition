@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="Vox Nutrition OEM client onboarding form for private-label supplement development."
+    />
+    <title>Vox Nutrition | OEM Client Intake</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Newsreader:opsz,wght@6..72,600;6..72,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <main class="shell">
+      <aside class="brand-panel" aria-label="Vox Nutrition overview">
+        <div class="brand-lockup">
+          <div class="logo-mark" aria-hidden="true">VX</div>
+          <div>
+            <p class="eyebrow">OEM / White Label</p>
+            <h1>Vox Nutrition</h1>
+          </div>
+        </div>
+
+        <section class="manufacturing-card">
+          <p class="card-kicker">Client onboarding</p>
+          <h2>Capsule supplement programs built for brand owners.</h2>
+          <p>
+            Register your company profile to request development, quotation, packaging,
+            and production planning for resveratrol and adjacent nutraceutical products.
+          </p>
+          <div class="capabilities">
+            <span>Resveratrol</span>
+            <span>Longevity blends</span>
+            <span>Capsules</span>
+            <span>Private label</span>
+          </div>
+        </section>
+
+        <div class="process-list" aria-label="Process steps">
+          <div>
+            <strong>01</strong>
+            <span>Business validation</span>
+          </div>
+          <div>
+            <strong>02</strong>
+            <span>Formula and packaging scope</span>
+          </div>
+          <div>
+            <strong>03</strong>
+            <span>OEM production quotation</span>
+          </div>
+        </div>
+      </aside>
+
+      <section class="form-panel" aria-label="Client registration form">
+        <div class="form-heading">
+          <p class="eyebrow">New client file</p>
+          <h2>Company registration</h2>
+          <p>
+            Submit representative, company, market, and signature details to start a Vox
+            Nutrition OEM request.
+          </p>
+        </div>
+
+        <form id="clientForm" class="intake-form" autocomplete="on">
+          <div class="section-title">
+            <span>Representative</span>
+            <small>Authorized signer</small>
+          </div>
+
+          <div class="field-grid">
+            <label class="field">
+              <span>Legal representative name</span>
+              <input name="representativeName" type="text" placeholder="Full legal name" required />
+            </label>
+
+            <label class="field">
+              <span>Business email</span>
+              <input name="email" type="email" placeholder="name@company.com" required />
+            </label>
+
+            <label class="field">
+              <span>Phone / WhatsApp</span>
+              <input name="phone" type="tel" placeholder="+1 000 000 0000" required />
+            </label>
+
+            <label class="field">
+              <span>Role in company</span>
+              <input name="role" type="text" placeholder="CEO, Founder, Director..." required />
+            </label>
+          </div>
+
+          <div class="section-title">
+            <span>Company</span>
+            <small>Brand owner details</small>
+          </div>
+
+          <div class="field-grid">
+            <label class="field">
+              <span>Company legal name</span>
+              <input name="companyName" type="text" placeholder="Registered company name" required />
+            </label>
+
+            <label class="field">
+              <span>Company website</span>
+              <input name="website" type="url" placeholder="https://example.com" />
+            </label>
+
+            <label class="field">
+              <span>Company country</span>
+              <select name="companyCountry" class="country-select" required>
+                <option value="">Select country</option>
+                <option>United States</option>
+                <option>Canada</option>
+                <option>Mexico</option>
+                <option>Bolivia</option>
+                <option>Colombia</option>
+                <option>Peru</option>
+                <option>Chile</option>
+                <option>Argentina</option>
+                <option>Brazil</option>
+                <option>Spain</option>
+                <option>United Kingdom</option>
+                <option>Other</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Representative residence country</span>
+              <select name="residenceCountry" class="country-select" required>
+                <option value="">Select country</option>
+                <option>United States</option>
+                <option>Canada</option>
+                <option>Mexico</option>
+                <option>Bolivia</option>
+                <option>Colombia</option>
+                <option>Peru</option>
+                <option>Chile</option>
+                <option>Argentina</option>
+                <option>Brazil</option>
+                <option>Spain</option>
+                <option>United Kingdom</option>
+                <option>Other</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="section-title">
+            <span>OEM request</span>
+            <small>Product direction</small>
+          </div>
+
+          <div class="field-grid">
+            <label class="field">
+              <span>Primary product interest</span>
+              <select name="productInterest" required>
+                <option value="">Select product type</option>
+                <option>Resveratrol capsules</option>
+                <option>Longevity supplement capsules</option>
+                <option>Antioxidant blend capsules</option>
+                <option>Custom capsule formula</option>
+                <option>Other private-label supplement</option>
+              </select>
+            </label>
+
+            <label class="field">
+              <span>Estimated first order</span>
+              <select name="firstOrder" required>
+                <option value="">Select volume</option>
+                <option>500 - 1,000 bottles</option>
+                <option>1,001 - 5,000 bottles</option>
+                <option>5,001 - 10,000 bottles</option>
+                <option>10,000+ bottles</option>
+                <option>Need guidance</option>
+              </select>
+            </label>
+
+            <label class="field field-wide">
+              <span>Project notes</span>
+              <textarea
+                name="notes"
+                rows="4"
+                placeholder="Target market, capsule count, bottle size, packaging needs, certifications, launch timeline..."
+              ></textarea>
+            </label>
+          </div>
+
+          <div class="signature-block">
+            <div class="signature-copy">
+              <div>
+                <span class="signature-label">Digital signature</span>
+                <p>Use finger, stylus, or mouse to sign as authorized legal representative.</p>
+              </div>
+              <button class="ghost-button" type="button" id="clearSignature">Clear</button>
+            </div>
+            <canvas id="signatureCanvas" aria-label="Digital signature canvas"></canvas>
+            <input type="hidden" name="signatureData" id="signatureData" />
+          </div>
+
+          <label class="check-row">
+            <input name="authority" type="checkbox" required />
+            <span>I confirm that I am authorized to submit this OEM client request for the company listed above.</span>
+          </label>
+
+          <div class="actions">
+            <button class="primary-button" type="submit">
+              Submit client request
+              <span aria-hidden="true">→</span>
+            </button>
+            <button class="secondary-button" type="button" id="downloadRecord">Download record</button>
+          </div>
+
+          <p id="formStatus" class="form-status" role="status" aria-live="polite"></p>
+        </form>
+      </section>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.2.0/dist/signature_pad.umd.min.js"></script>
+    <script src="./app.js"></script>
+  </body>
+</html>

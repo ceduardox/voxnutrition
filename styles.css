@@ -351,12 +351,27 @@ canvas {
 .selfie-stage img,
 .selfie-stage.has-video .camera-placeholder,
 .selfie-stage.has-photo video,
-.selfie-stage.has-photo .camera-placeholder {
+.selfie-stage.has-photo .camera-placeholder,
+.photo-badge {
   display: none;
 }
 
 .selfie-stage.has-photo img {
   display: block;
+}
+
+.selfie-stage.has-photo .photo-badge {
+  position: absolute;
+  right: 0.85rem;
+  bottom: 0.85rem;
+  display: inline-flex;
+  border-radius: 999px;
+  padding: 0.55rem 0.72rem;
+  background: rgba(36, 88, 68, 0.94);
+  color: #ffffff;
+  font-size: 0.8rem;
+  font-weight: 850;
+  box-shadow: 0 10px 24px rgba(25, 32, 27, 0.22);
 }
 
 .camera-placeholder {
@@ -447,6 +462,62 @@ canvas {
   margin: 0.9rem 0 0;
   color: var(--herb);
   font-weight: 800;
+}
+
+.form-status.is-success {
+  border: 1px solid rgba(36, 88, 68, 0.18);
+  border-radius: 0.45rem;
+  padding: 0.85rem;
+  background: rgba(36, 88, 68, 0.08);
+}
+
+.success-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(25, 32, 27, 0.52);
+}
+
+.success-modal.is-visible {
+  display: flex;
+}
+
+.success-card {
+  width: min(100%, 30rem);
+  border: 1px solid rgba(255, 255, 255, 0.38);
+  border-radius: 0.65rem;
+  padding: clamp(1.25rem, 4vw, 2rem);
+  background: #ffffff;
+  box-shadow: var(--shadow);
+}
+
+.success-icon {
+  display: grid;
+  width: 3.4rem;
+  aspect-ratio: 1;
+  margin-bottom: 1rem;
+  border-radius: 50%;
+  background: var(--herb);
+  color: #ffffff;
+  font-size: 1.7rem;
+  font-weight: 900;
+  place-items: center;
+}
+
+.success-card h2 {
+  margin: 0;
+  font-family: "Newsreader", Georgia, serif;
+  font-size: clamp(2rem, 6vw, 3.2rem);
+  line-height: 0.96;
+}
+
+.success-card p:not(.eyebrow) {
+  color: var(--muted);
+  line-height: 1.7;
 }
 
 @media (max-width: 980px) {

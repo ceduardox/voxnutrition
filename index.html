@@ -216,6 +216,7 @@
             <div class="selfie-stage">
               <video id="selfieVideo" autoplay playsinline muted></video>
               <img id="selfiePreview" alt="Representative selfie preview" />
+              <div class="photo-badge" id="photoBadge">Selfie captured</div>
               <div class="camera-placeholder" id="cameraPlaceholder">
                 <span>Camera preview</span>
               </div>
@@ -244,6 +245,19 @@
         </form>
       </section>
     </main>
+
+    <div class="success-modal" id="successModal" role="dialog" aria-modal="true" aria-labelledby="successTitle">
+      <div class="success-card">
+        <div class="success-icon" aria-hidden="true">✓</div>
+        <p class="eyebrow">Request submitted</p>
+        <h2 id="successTitle">Client file received successfully.</h2>
+        <p>
+          The representative information, company profile, digital signature, and selfie
+          were saved on this device for Vox Nutrition review.
+        </p>
+        <button class="primary-button" type="button" id="closeSuccess">Continue</button>
+      </div>
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.2.0/dist/signature_pad.umd.min.js"></script>

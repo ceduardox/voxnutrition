@@ -11,6 +11,8 @@
   const startCamera = document.querySelector("#startCamera");
   const captureSelfie = document.querySelector("#captureSelfie");
   const resetSelfie = document.querySelector("#resetSelfie");
+  const successModal = document.querySelector("#successModal");
+  const closeSuccess = document.querySelector("#closeSuccess");
   const storageKey = "voxnutrition_oem_client_request";
   let cameraStream = null;
 
@@ -140,7 +142,8 @@
     selfieStage.classList.add("has-photo");
     stopCamera();
     saveRecord(formToRecord());
-    status.textContent = "Selfie captured and attached to this client request.";
+    status.classList.remove("is-success");
+    status.textContent = "Selfie captured. The photo preview is now attached to this client request.";
   }
 
   window.addEventListener("resize", resizeCanvas);
@@ -158,6 +161,7 @@
     signaturePad.clear();
     signatureInput.value = "";
     saveRecord(formToRecord());
+    status.classList.remove("is-success");
     status.textContent = "Signature cleared.";
   });
 
@@ -169,6 +173,7 @@
     selfieStage.classList.remove("has-photo", "has-video");
     stopCamera();
     saveRecord(formToRecord());
+    status.classList.remove("is-success");
     status.textContent = "Selfie cleared. Open the camera to take a new photo.";
   });
 
@@ -189,7 +194,19 @@
     signatureInput.value = signaturePad.toDataURL("image/png");
     const record = formToRecord();
     saveRecord(record);
-    status.textContent = "Client request captured. Vox Nutrition can review this file.";
+    status.classList.add("is-success");
+    status.textContent = "Submitted successfully. The client file was saved on this device.";
+    successModal.classList.add("is-visible");
+  });
+
+  closeSuccess.addEventListener("click", () => {
+    successModal.classList.remove("is-visible");
+  });
+
+  successModal.addEventListener("click", (event) => {
+    if (event.target === successModal) {
+      successModal.classList.remove("is-visible");
+    }
   });
 
   window.addEventListener("beforeunload", stopCamera);

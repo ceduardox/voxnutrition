@@ -19,11 +19,13 @@
 
 html {
   min-height: 100%;
+  overflow-x: hidden;
 }
 
 body {
   min-height: 100vh;
   margin: 0;
+  overflow-x: hidden;
   font-family: "Manrope", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   background:
     radial-gradient(circle at 10% 20%, rgba(201, 154, 66, 0.2), transparent 26rem),
@@ -41,7 +43,10 @@ textarea {
 .shell {
   display: grid;
   grid-template-columns: minmax(300px, 0.82fr) minmax(0, 1.3fr);
+  width: 100%;
+  max-width: 100%;
   min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .brand-panel {
@@ -77,6 +82,7 @@ textarea {
   z-index: 1;
   display: flex;
   max-width: 31rem;
+  width: 100%;
   flex-direction: column;
   align-items: flex-start;
   gap: 0.8rem;
@@ -86,6 +92,7 @@ textarea {
   display: block;
   width: min(100%, 22rem);
   max-height: 5rem;
+  max-width: 100%;
   border: 1px solid rgba(255, 255, 255, 0.24);
   border-radius: 0.65rem;
   padding: 0.65rem 0.75rem;
@@ -169,9 +176,11 @@ textarea {
 
 .form-panel {
   display: flex;
+  min-width: 0;
   flex-direction: column;
   justify-content: center;
   padding: clamp(1rem, 3.2vw, 3rem);
+  overflow-x: hidden;
 }
 
 .form-heading {
@@ -191,6 +200,7 @@ textarea {
 
 .intake-form {
   width: min(100%, 58rem);
+  max-width: 100%;
   margin: 0 auto;
   border: 1px solid rgba(36, 88, 68, 0.14);
   border-radius: 0.65rem;
@@ -275,16 +285,26 @@ textarea {
 }
 
 .choices {
+  max-width: 100%;
   margin-bottom: 0;
 }
 
 .choices__inner {
+  width: 100%;
+  max-width: 100%;
   min-height: auto;
   border: 1px solid #cfd9cd;
   border-radius: 0.45rem;
   padding: 0.43rem 0.5rem;
   background: #fbfcf8;
   font-size: 1rem;
+}
+
+.choices__list--single {
+  overflow: hidden;
+  padding-right: 1.5rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .choices[data-type*="select-one"]::after {
@@ -604,8 +624,8 @@ canvas {
 
   .intake-form {
     border-radius: 0;
-    margin-inline: -1rem;
-    width: calc(100% + 2rem);
+    margin-inline: 0;
+    width: 100%;
     box-shadow: none;
   }
 

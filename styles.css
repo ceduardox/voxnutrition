@@ -40,7 +40,7 @@ textarea {
 
 .shell {
   display: grid;
-  grid-template-columns: minmax(320px, 0.9fr) minmax(0, 1.25fr);
+  grid-template-columns: minmax(300px, 0.82fr) minmax(0, 1.3fr);
   min-height: 100vh;
 }
 
@@ -51,9 +51,9 @@ textarea {
   min-height: 100vh;
   flex-direction: column;
   justify-content: space-between;
-  gap: 2rem;
+  gap: clamp(1.25rem, 3vw, 2rem);
   overflow: hidden;
-  padding: clamp(1.5rem, 4vw, 4rem);
+  padding: clamp(1.25rem, 3.2vw, 3rem);
   color: #f8fbf4;
   background:
     linear-gradient(160deg, rgba(36, 88, 68, 0.96), rgba(25, 32, 27, 0.92)),
@@ -76,20 +76,23 @@ textarea {
   position: relative;
   z-index: 1;
   display: flex;
-  align-items: center;
-  gap: 1rem;
+  max-width: 31rem;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.8rem;
 }
 
-.logo-mark {
-  display: grid;
-  width: 4.25rem;
-  aspect-ratio: 1;
-  place-items: center;
-  border: 1px solid rgba(255, 255, 255, 0.4);
-  border-radius: 1.2rem 0.4rem 1.2rem 0.4rem;
-  background: rgba(255, 255, 255, 0.12);
-  font-weight: 800;
-  letter-spacing: 0;
+.brand-logo {
+  display: block;
+  width: min(100%, 22rem);
+  max-height: 5rem;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 0.65rem;
+  padding: 0.65rem 0.75rem;
+  background: rgba(255, 255, 255, 0.94);
+  object-fit: contain;
+  object-position: left center;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.18);
 }
 
 .eyebrow,
@@ -102,25 +105,18 @@ textarea {
   text-transform: uppercase;
 }
 
-.brand-lockup h1 {
-  margin: 0;
-  font-family: "Newsreader", Georgia, serif;
-  font-size: clamp(2.1rem, 4vw, 4.5rem);
-  line-height: 0.92;
-}
-
 .manufacturing-card {
   position: relative;
   z-index: 1;
-  max-width: 34rem;
+  max-width: 32rem;
 }
 
 .manufacturing-card h2,
 .form-heading h2 {
   margin: 0;
   font-family: "Newsreader", Georgia, serif;
-  font-size: clamp(2.4rem, 6vw, 5.6rem);
-  line-height: 0.9;
+  font-size: clamp(2.15rem, 5vw, 4.6rem);
+  line-height: 0.94;
 }
 
 .manufacturing-card p,
@@ -175,7 +171,7 @@ textarea {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: clamp(1rem, 4vw, 4rem);
+  padding: clamp(1rem, 3.2vw, 3rem);
 }
 
 .form-heading {
@@ -185,7 +181,7 @@ textarea {
 }
 
 .form-heading h2 {
-  font-size: clamp(2.4rem, 5vw, 4.6rem);
+  font-size: clamp(2.15rem, 4vw, 3.9rem);
 }
 
 .form-heading p {
@@ -332,7 +328,8 @@ canvas {
 .selfie-stage {
   position: relative;
   display: grid;
-  min-height: 260px;
+  min-height: 230px;
+  aspect-ratio: 16 / 9;
   overflow: hidden;
   border: 1px dashed #aab8a3;
   border-radius: 0.45rem;
@@ -344,7 +341,7 @@ canvas {
 .selfie-stage img {
   width: 100%;
   height: 100%;
-  min-height: 260px;
+  min-height: 230px;
   object-fit: cover;
 }
 
@@ -535,30 +532,74 @@ canvas {
   .brand-panel {
     position: relative;
     min-height: auto;
+    gap: 1.4rem;
   }
 
   .manufacturing-card h2 {
     max-width: 42rem;
   }
+
+  .process-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .process-list div {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.35rem;
+  }
 }
 
 @media (max-width: 640px) {
+  body {
+    background: #f7f6ef;
+  }
+
   .brand-panel,
   .form-panel {
     padding: 1rem;
   }
 
   .brand-lockup {
+    width: 100%;
     align-items: flex-start;
+  }
+
+  .brand-logo {
+    width: min(100%, 17rem);
+    max-height: 4.2rem;
+    padding: 0.5rem 0.6rem;
+  }
+
+  .manufacturing-card p,
+  .form-heading p,
+  .signature-copy p {
+    line-height: 1.55;
   }
 
   .manufacturing-card h2,
   .form-heading h2 {
+    font-size: clamp(2rem, 12vw, 3rem);
     line-height: 0.96;
+  }
+
+  .capabilities {
+    gap: 0.45rem;
+    margin-top: 1rem;
+  }
+
+  .capabilities span {
+    padding: 0.48rem 0.62rem;
+    font-size: 0.76rem;
+  }
+
+  .process-list {
+    grid-template-columns: 1fr;
   }
 
   .field-grid {
     grid-template-columns: 1fr;
+    gap: 0.8rem;
   }
 
   .intake-form {
@@ -568,10 +609,32 @@ canvas {
     box-shadow: none;
   }
 
+  .field input,
+  .field select,
+  .field textarea {
+    padding: 0.78rem 0.82rem;
+  }
+
+  .signature-block,
+  .selfie-block {
+    padding: 0.85rem;
+  }
+
+  canvas {
+    height: 145px;
+  }
+
+  .selfie-stage,
+  .selfie-stage video,
+  .selfie-stage img {
+    min-height: 190px;
+  }
+
   .signature-copy,
   .section-title {
     align-items: flex-start;
     flex-direction: column;
+    gap: 0.45rem;
   }
 
   .actions {
@@ -582,5 +645,9 @@ canvas {
   .secondary-button,
   .camera-actions button {
     width: 100%;
+  }
+
+  .success-card {
+    padding: 1.15rem;
   }
 }
